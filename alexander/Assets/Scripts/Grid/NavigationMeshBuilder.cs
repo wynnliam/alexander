@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NavigationMeshBuilder
+public class NavigationRegionListBuilder
 {
     public List<NavigationRegion> ConstructNavigationMesh(int[,] gridMap, int numRow, int numColumn)
     {
