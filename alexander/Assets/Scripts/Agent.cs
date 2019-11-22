@@ -61,7 +61,7 @@ public class Agent : MonoBehaviour
 
         if(flowField != null && flowField.Length > 0)
         {
-            currRegion = mesh.NavigationRegionIdFromTilePosition(transform.position);
+            currRegion = mesh.NavigationRegionIdFromGridSpacePosition(transform.position);
 
             // flowField[currRegion] is the region that we want to move towards FROM our
             // current region. So if flowField[currRegion] = currRegion, then our goal is in

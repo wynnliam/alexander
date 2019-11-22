@@ -137,7 +137,7 @@ public class NavigationMesh : MonoBehaviour
     // Note that the goal is in grid space.
     public int[] GetFlowfieldGraph(Vector3 goal)
     {
-        int currIndex = NavigationRegionIdFromTilePosition(goal);
+        int currIndex = NavigationRegionIdFromGridSpacePosition(goal);
         int[] graph = new int[regions.Count];
         List<int> toVisit = new List<int>();
 
@@ -189,7 +189,7 @@ public class NavigationMesh : MonoBehaviour
         return result;
     }
 
-    public int NavigationRegionIdFromTilePosition(Vector3 pos)
+    public int NavigationRegionIdFromGridSpacePosition(Vector3 pos)
     {
         int row = (int)(pos.y - gridMapOrigin.y);
         int col = (int)(pos.x - gridMapOrigin.x);
