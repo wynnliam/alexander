@@ -49,9 +49,6 @@ public class NavigationMesh : MonoBehaviour
                 // -1 denotes no region in this position
                 regionByPositionLookupMatrix[i, j] = -1;
 
-                if (i == numRows - 1 && j == numColumns - 1)
-                    Debug.Log("here!");
-
                 if (wallTiles.HasTile(new Vector3Int(j, i, 0) + gridMapOrigin))
                     map[i, j] = 1;
                 else
