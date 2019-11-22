@@ -25,7 +25,7 @@ public class NavigationMesh : MonoBehaviour
     // Given an index position (a row and column), we return the region in
     // that position. This makes finding the region of some location a constant
     // time operation.
-    private int[,] regionByPositionLookupMatrix;
+    private int[,] regionIndexPositionMap;
 
     // Start is called before the first frame update
     void Start()
@@ -39,13 +39,13 @@ public class NavigationMesh : MonoBehaviour
         gridMapOrigin = wallTiles.origin;
 
         wallIndexPositionMap = new int[numRows, numColumns];
-        regionByPositionLookupMatrix = new int[numRows, numColumns];
+        regionIndexPositionMap = new int[numRows, numColumns];
         for(int i = 0; i < numRows; i++)
         {
             for(int j = 0; j < numColumns; j++)
             {
                 // -1 denotes no region in this position
-                regionByPositionLookupMatrix[i, j] = -1;
+                regionIndexPositionMap[i, j] = -1;
 
                 if (wallTiles.HasTile(new Vector3Int(j, i, 0) + gridMapOrigin))
                     wallIndexPositionMap[i, j] = 1;
@@ -75,7 +75,7 @@ public class NavigationMesh : MonoBehaviour
             {
                 for(int col = region.Column; col < region.Column + region.Width; col++)
                 {
-                    regionByPositionLookupMatrix[row, col] = region.Id;
+                    regionIndexPositionMap[row, col] = region.Id;
                 }
             }
         }
@@ -148,7 +148,7 @@ public class NavigationMesh : MonoBehaviour
         int result = -1;
 
         if (0 <= row && row < numRows && 0 <= col && col <= numColumns)
-            result = regionByPositionLookupMatrix[row, col];
+            result = regionIndexPositionMap[row, col];
 
         return result;
     }
