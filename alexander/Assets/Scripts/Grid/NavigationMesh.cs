@@ -21,7 +21,7 @@ public class NavigationMesh : MonoBehaviour
 
     // Matrix representation of our level. Positions marked 1 are walls,
     // and positions marked 0 are floors.
-    private int[,] map;
+    private int[,] wallIndexPositionMap;
     // Given an index position (a row and column), we return the region in
     // that position. This makes finding the region of some location a constant
     // time operation.
@@ -38,7 +38,7 @@ public class NavigationMesh : MonoBehaviour
         numColumns = wallTiles.size.x;
         gridMapOrigin = wallTiles.origin;
 
-        map = new int[numRows, numColumns];
+        wallIndexPositionMap = new int[numRows, numColumns];
         regionByPositionLookupMatrix = new int[numRows, numColumns];
         for(int i = 0; i < numRows; i++)
         {
@@ -48,14 +48,14 @@ public class NavigationMesh : MonoBehaviour
                 regionByPositionLookupMatrix[i, j] = -1;
 
                 if (wallTiles.HasTile(new Vector3Int(j, i, 0) + gridMapOrigin))
-                    map[i, j] = 1;
+                    wallIndexPositionMap[i, j] = 1;
                 else
-                    map[i, j] = 0;
+                    wallIndexPositionMap[i, j] = 0;
             }
         }
 
         NavigationMeshBuilder builder = new NavigationMeshBuilder();
-        regions = builder.ConstructNavigationMesh(map, numRows, numColumns);
+        regions = builder.ConstructNavigationMesh(wallIndexPositionMap, numRows, numColumns);
 
         regionAdjacencyMatrix = new bool[regions.Count, regions.Count];
         for(int i = 0; i < regions.Count; i++)
