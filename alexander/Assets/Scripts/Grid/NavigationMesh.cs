@@ -14,6 +14,11 @@ public class NavigationMesh : MonoBehaviour
     private bool[,] regionAdjacencyMatrix;
 
     private Tilemap wallTiles;
+    // Basically, every tile on the grid map is relative to this position.
+    // So if we want to transform an index position into a tile position,
+    // we add this value. If we want to get an index position from a tile
+    // position, we subtract this value.
+    private Vector3Int gridMapOrigin;
 
     // Matrix representation of our level. Positions marked 1 are walls,
     // and positions marked 0 are floors.
@@ -30,6 +35,7 @@ public class NavigationMesh : MonoBehaviour
         // y is the number of rows, and x is the number of columns
         numRows = wallTiles.size.y;
         numColumns = wallTiles.size.x;
+        gridMapOrigin = wallTiles.origin;
 
         map = new int[numRows, numColumns];
         for(int i = 0; i < numRows; i++)
@@ -39,7 +45,7 @@ public class NavigationMesh : MonoBehaviour
                 if (i == numRows - 1 && j == numColumns - 1)
                     Debug.Log("here!");
 
-                if (wallTiles.HasTile(new Vector3Int(j, i, 0) + wallTiles.origin))
+                if (wallTiles.HasTile(new Vector3Int(j, i, 0) + gridMapOrigin))
                     map[i, j] = 1;
                 else
                     map[i, j] = 0;
@@ -111,8 +117,8 @@ public class NavigationMesh : MonoBehaviour
                 result.x = (r.Column + (r.Column + r.Width)) / 2.0f;
                 result.y = (r.Row + (r.Row + r.Height)) / 2.0f;
 
-                result.x += wallTiles.origin.x;
-                result.y += wallTiles.origin.y;
+                result.x += gridMapOrigin.x;
+                result.y += gridMapOrigin.y;
             }
         }
 
@@ -121,8 +127,8 @@ public class NavigationMesh : MonoBehaviour
 
     public int NavigationRegionIdFromTilePosition(Vector3 pos)
     {
-        int row = (int)(pos.y - wallTiles.origin.y);
-        int col = (int)(pos.x - wallTiles.origin.x);
+        int row = (int)(pos.y - gridMapOrigin.y);
+        int col = (int)(pos.x - gridMapOrigin.x);
 
         int result = -1;
 
