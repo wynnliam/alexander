@@ -38,7 +38,7 @@ public class Flock : MonoBehaviour
         Flowfield = null;
     }
 
-    public List<Vector2> getNeighborPositions(int id, Vector2 position, float radius)
+    public List<Vector2> GetNeighborPositions(int id, Vector2 position, float radius)
     {
         List<Vector2> result = new List<Vector2>();
         Agent next;
@@ -58,7 +58,7 @@ public class Flock : MonoBehaviour
         return result;
     }
 
-    public List<Vector2> getNeighborVelocity(int id, Vector2 position, float radius)
+    public List<Vector2> GetNeighborVelocity(int id, Vector2 position, float radius)
     {
         List<Vector2> result = new List<Vector2>();
         Agent next;

@@ -90,7 +90,7 @@ public class Agent : MonoBehaviour
         Vector2 myPos2D = transform.position;
         Vector2 totalForce = Vector2.zero;
 
-        List<Vector2> neighborPositions = flock.getNeighborPositions(id, transform.position, 10.0f);
+        List<Vector2> neighborPositions = flock.GetNeighborPositions(id, transform.position, 10.0f);
 
         if (neighborPositions.Count < 1)
             return Vector2.zero;
@@ -114,7 +114,7 @@ public class Agent : MonoBehaviour
     {
         Vector2 myPos2D = transform.position;
         Vector2 centerOfMass = myPos2D;
-        List<Vector2> neighborPos = flock.getNeighborPositions(id, myPos2D, 10.0f);
+        List<Vector2> neighborPos = flock.GetNeighborPositions(id, myPos2D, 10.0f);
 
         if (neighborPos.Count <= 1)
             return Vector2.zero;
@@ -139,8 +139,8 @@ public class Agent : MonoBehaviour
 
     private Vector2 Alignment()
     {
-        List<Vector2> neighborPos = flock.getNeighborPositions(id, transform.position, 10.0f);
-        List<Vector2> neighborForwards = flock.getNeighborVelocity(id, transform.position, 10.0f);
+        List<Vector2> neighborPos = flock.GetNeighborPositions(id, transform.position, 10.0f);
+        List<Vector2> neighborForwards = flock.GetNeighborVelocity(id, transform.position, 10.0f);
         Vector2 averageHeading = Vector2.zero;
         Vector2 myPos2d = transform.position;
 
