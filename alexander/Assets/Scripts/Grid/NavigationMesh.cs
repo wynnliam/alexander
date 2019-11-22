@@ -109,7 +109,21 @@ public class NavigationMesh : MonoBehaviour
     {
         Vector2 result = new Vector2();
 
-        foreach(NavigationRegion r in regions)
+        if(0 <= id && id < regions.Count)
+        {
+            // This is safe because the id corresponds to the index
+            // in the region list. When we construct the NavigationRegions,
+            // we set the id's to be this way.
+            NavigationRegion r = regions[id];
+
+            result.x = (r.Column + (r.Column + r.Width)) / 2.0f;
+            result.y = (r.Row + (r.Row + r.Height)) / 2.0f;
+
+            result.x += gridMapOrigin.x;
+            result.y += gridMapOrigin.y;
+        }
+
+        /*foreach(NavigationRegion r in regions)
         {
             if(r.Id == id)
             {
@@ -119,7 +133,7 @@ public class NavigationMesh : MonoBehaviour
                 result.x += gridMapOrigin.x;
                 result.y += gridMapOrigin.y;
             }
-        }
+        }*/
 
         return result;
     }
