@@ -155,15 +155,6 @@ public class NavigationMesh : MonoBehaviour
         if (0 <= row && row < numRows && 0 <= col && col <= numColumns)
             result = regionByPositionLookupMatrix[row, col];
 
-        /*foreach(NavigationRegion region in regions)
-        {
-            if(region.Contains(row, col))
-            {
-                result = region.Id;
-                break;
-            }
-        }*/
-
         return result;
     }
 
