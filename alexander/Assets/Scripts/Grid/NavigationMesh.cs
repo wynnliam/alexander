@@ -22,6 +22,10 @@ public class NavigationMesh : MonoBehaviour
     // Matrix representation of our level. Positions marked 1 are walls,
     // and positions marked 0 are floors.
     private int[,] map;
+    // Given an index position (a row and column), we return the region in
+    // that position. This makes finding the region of some location a constant
+    // time operation.
+    private int[,] regionByPositionLookupMatrix;
 
     // Start is called before the first frame update
     void Start()
@@ -37,10 +41,14 @@ public class NavigationMesh : MonoBehaviour
         gridMapOrigin = wallTiles.origin;
 
         map = new int[numRows, numColumns];
+        regionByPositionLookupMatrix = new int[numRows, numColumns];
         for(int i = 0; i < numRows; i++)
         {
             for(int j = 0; j < numColumns; j++)
             {
+                // -1 denotes no region in this position
+                regionByPositionLookupMatrix[i, j] = -1;
+
                 if (i == numRows - 1 && j == numColumns - 1)
                     Debug.Log("here!");
 
@@ -63,6 +71,17 @@ public class NavigationMesh : MonoBehaviour
                     regionAdjacencyMatrix[i, j] = true;
                 else
                     regionAdjacencyMatrix[i, j] = false;
+            }
+        }
+
+        foreach(NavigationRegion region in regions)
+        {
+            for(int row = region.Row; row < region.Row + region.Height; row++)
+            {
+                for(int col = region.Column; col < region.Column + region.Width; col++)
+                {
+                    regionByPositionLookupMatrix[row, col] = region.Id;
+                }
             }
         }
     }
@@ -133,14 +152,17 @@ public class NavigationMesh : MonoBehaviour
 
         int result = -1;
 
-        foreach(NavigationRegion region in regions)
+        if (0 <= row && row < numRows && 0 <= col && col <= numColumns)
+            result = regionByPositionLookupMatrix[row, col];
+
+        /*foreach(NavigationRegion region in regions)
         {
             if(region.Contains(row, col))
             {
                 result = region.Id;
                 break;
             }
-        }
+        }*/
 
         return result;
     }
