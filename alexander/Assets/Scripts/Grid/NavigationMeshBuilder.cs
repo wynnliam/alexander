@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NavigationRegionListBuilder
 {
-    public List<NavigationRegion> ConstructNavigationMesh(int[,] gridMap, int numRow, int numColumn)
+    public List<NavigationRegion> ConstructNavigationRegionList(int[,] gridMap, int numRow, int numColumn)
     {
         // List of regions created according to gridMap
         List<NavigationRegion> result = GenerateInitialNavigationRegions(gridMap, numRow, numColumn);

@@ -64,7 +64,7 @@ public class NavigationMesh : MonoBehaviour
         InitializeIndexPositionMaps(wallTiles);
 
         NavigationRegionListBuilder builder = new NavigationRegionListBuilder();
-        regions = builder.ConstructNavigationMesh(wallIndexPositionMap, numRows, numColumns);
+        regions = builder.ConstructNavigationRegionList(wallIndexPositionMap, numRows, numColumns);
 
         InitializeRegionAdjacencyMatrix();
 
