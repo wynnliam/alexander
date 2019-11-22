@@ -75,29 +75,9 @@ public class Agent : MonoBehaviour
         return result;
     }
 
-    // TODO: Have seek take a target vector
     private Vector2 seek(Vector2 targetPos)
     {
         Vector2 desiredVelocity = targetPos - (Vector2)transform.position;
-        /*int[] flowField = flock.Flowfield;
-
-        if(flowField != null && flowField.Length > 0)
-        {
-            int currRegion = mesh.NavigationRegionIdFromTilePosition(transform.position);
-            if(currRegion != -1)
-            {
-                if(flowField[currRegion] != currRegion)
-                {
-                    Vector3 tempDesiredVel = mesh.GetRegionCenter(flowField[currRegion]);
-                    tempDesiredVel -= transform.position;
-                    desiredVelocity = new Vector2(tempDesiredVel.x, tempDesiredVel.y);
-                }
-
-                else
-                    desiredVelocity = target.transform.position - transform.position;
-            }
-        }*/
-
         desiredVelocity = desiredVelocity.normalized * maxSpeed;
 
         Vector2 force = desiredVelocity - velocity;
