@@ -5,6 +5,29 @@ using UnityEngine.Tilemaps;
 
 public class NavigationMesh : MonoBehaviour
 {
+    /*
+     * RULE: We define two coordinate spaces that this class facilitates the
+     * translation of.
+     * 
+     * 1. Grid Space: This is the coordinate space of the 2D world. For example,
+     * that actor is located at (24.7, 32.5). A word to the wise: this space can
+     * be represented with both Vector2s and Vector3s. Why does this happen? Despite
+     * being a 2D game, the transforms of actors are Vector3s.
+     * 
+     * 2. Index Space: This is the space of specifying a row and column. Our world
+     * is a tile grid. So if I give a location (3, 4) in index space this says
+     * "the tile at row 3, column 4". Note that the axis are flipped in this case.
+     * a Y position (a row) is specified before an X position (a column). Why did I
+     * do this? I've always found it more intuitive to specify a row and then a column.
+     * Sorry, but if you have to maintain this you're gonna get used to my quirks.
+     * 
+     * Why not just have one space? Well Grids, the things tiles exist in in the Unity
+     * Engine, don't have to have an origin at (0, 0), but index space does. One scene
+     * that I've worked with had tiles that were located in negative regions. Since I didn't
+     * want to have to think about this translation of spaces when designing levels, I 
+     * simply automate it here. I also found it easier to reason about regions in index space.
+     */
+
     private int numRows, numColumns;
 
     // A list of all the navigable regions in the level.
@@ -111,6 +134,7 @@ public class NavigationMesh : MonoBehaviour
     // x have a steering force that goes to the center of region y.
     // We generate this graph by starting with the end goal's region,
     // then doing a form of BFS until all regions have a value.
+    // Note that the goal is in grid space.
     public int[] GetFlowfieldGraph(Vector3 goal)
     {
         int currIndex = NavigationRegionIdFromTilePosition(goal);
