@@ -13,7 +13,6 @@ public class NavigationMesh : MonoBehaviour
     // Otherwise they are not adjacent.
     private bool[,] regionAdjacencyMatrix;
 
-    private Tilemap wallTiles;
     // Basically, every tile on the grid map is relative to this position.
     // So if we want to transform an index position into a tile position,
     // we add this value. If we want to get an index position from a tile
@@ -30,7 +29,7 @@ public class NavigationMesh : MonoBehaviour
         Transform wallTransform = transform.Find("CollisionArea");
         Transform floorTransform = transform.Find("WalkableArea");
 
-        wallTiles = wallTransform.GetComponent<Tilemap>();
+        Tilemap wallTiles = wallTransform.GetComponent<Tilemap>();
 
         // y is the number of rows, and x is the number of columns
         numRows = wallTiles.size.y;
