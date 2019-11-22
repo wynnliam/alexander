@@ -31,8 +31,6 @@ public class NavigationMesh : MonoBehaviour
     void Start()
     {
         Transform wallTransform = transform.Find("CollisionArea");
-        Transform floorTransform = transform.Find("WalkableArea");
-
         Tilemap wallTiles = wallTransform.GetComponent<Tilemap>();
 
         // y is the number of rows, and x is the number of columns
