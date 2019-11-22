@@ -1,5 +1,5 @@
 # alexander
-Copyright (c) Liam Wynn
+Copyright (C) 2019 Liam Wynn
 
 2D Flock/boid simulation using the Unity engine
 
