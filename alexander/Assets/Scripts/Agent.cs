@@ -31,7 +31,9 @@ public class Agent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 seekForce = seek();
+        Vector2 targetPos = getTargetPosition();
+
+        Vector2 seekForce = seek(targetPos);
         Vector2 seperationForce = seperation();
         Vector2 cohesionForce = cohesion();
         Vector2 alignmentForce = alignment();
@@ -50,11 +52,34 @@ public class Agent : MonoBehaviour
         transform.Translate(velocity * Time.deltaTime, Space.World);
     }
 
-    // TODO: Have seek take a target vector
-    private Vector2 seek()
+    private Vector2 getTargetPosition()
     {
-        Vector2 desiredVelocity = Vector2.zero;
+        Vector2 result = transform.position;
+
         int[] flowField = flock.Flowfield;
+        int currRegion;
+
+        if(flowField != null && flowField.Length > 0)
+        {
+            currRegion = mesh.NavigationRegionIdFromTilePosition(transform.position);
+
+            // flowField[currRegion] is the region that we want to move towards FROM our
+            // current region. So if flowField[currRegion] = currRegion, then our goal is in
+            // the same region as we are. Thus we can move directly towards it.
+            if (currRegion != -1 && flowField[currRegion] != currRegion)
+                result = mesh.GetRegionCenter(flowField[currRegion]);
+            else
+                result = target.transform.position;
+        }
+
+        return result;
+    }
+
+    // TODO: Have seek take a target vector
+    private Vector2 seek(Vector2 targetPos)
+    {
+        Vector2 desiredVelocity = targetPos - (Vector2)transform.position;
+        /*int[] flowField = flock.Flowfield;
 
         if(flowField != null && flowField.Length > 0)
         {
@@ -71,7 +96,7 @@ public class Agent : MonoBehaviour
                 else
                     desiredVelocity = target.transform.position - transform.position;
             }
-        }
+        }*/
 
         desiredVelocity = desiredVelocity.normalized * maxSpeed;
 
