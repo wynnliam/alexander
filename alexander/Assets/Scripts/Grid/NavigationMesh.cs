@@ -148,24 +148,4 @@ public class NavigationMesh : MonoBehaviour
                a.LeftOf(b) ||
                a.RightOf(b);
     }
-
-    // A debug function to get a visual on regions. May delete later.
-    public void PaintNavigationRegion(NavigationRegion region, Color color)
-    {
-        Vector3Int nextPos = new Vector3Int(0, 0, 0);
-        Vector3Int tilePos;
-
-        for(int row = region.Row; row < region.Row + region.Height; row++)
-        {
-            for(int col = region.Column; col < region.Column + region.Width; col++)
-            {
-                nextPos.y = row;
-                nextPos.x = col;
-                tilePos = nextPos + wallTiles.origin;
-
-                floorTiles.SetTileFlags(tilePos, TileFlags.None);
-                floorTiles.SetColor(tilePos, color);
-            }
-        }
-    }
 }
