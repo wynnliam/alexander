@@ -123,18 +123,6 @@ public class NavigationMesh : MonoBehaviour
             result.y += gridMapOrigin.y;
         }
 
-        /*foreach(NavigationRegion r in regions)
-        {
-            if(r.Id == id)
-            {
-                result.x = (r.Column + (r.Column + r.Width)) / 2.0f;
-                result.y = (r.Row + (r.Row + r.Height)) / 2.0f;
-
-                result.x += gridMapOrigin.x;
-                result.y += gridMapOrigin.y;
-            }
-        }*/
-
         return result;
     }
 
