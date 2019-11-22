@@ -67,7 +67,7 @@ public class Agent : MonoBehaviour
             // current region. So if flowField[currRegion] = currRegion, then our goal is in
             // the same region as we are. Thus we can move directly towards it.
             if (currRegion != -1 && flowField[currRegion] != currRegion)
-                result = mesh.GetRegionCenter(flowField[currRegion]);
+                result = mesh.GetRegionCenterInGridSpace(flowField[currRegion]);
             else
                 result = target.transform.position;
         }

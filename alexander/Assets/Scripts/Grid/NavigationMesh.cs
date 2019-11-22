@@ -168,7 +168,7 @@ public class NavigationMesh : MonoBehaviour
         return graph;
     }
 
-    public Vector2 GetRegionCenter(int id)
+    public Vector2 GetRegionCenterInGridSpace(int id)
     {
         Vector2 result = new Vector2();
 
