@@ -38,6 +38,18 @@ public class NavigationMesh : MonoBehaviour
         numColumns = wallTiles.size.x;
         gridMapOrigin = wallTiles.origin;
 
+        InitializeIndexPositionMaps(wallTiles);
+
+        NavigationMeshBuilder builder = new NavigationMeshBuilder();
+        regions = builder.ConstructNavigationMesh(wallIndexPositionMap, numRows, numColumns);
+
+        InitializeRegionAdjacencyMatrix();
+
+        FillRegionIndexPositionMap();
+    }
+
+    private void InitializeIndexPositionMaps(Tilemap wallTiles)
+    {
         wallIndexPositionMap = new int[numRows, numColumns];
         regionIndexPositionMap = new int[numRows, numColumns];
         for(int i = 0; i < numRows; i++)
@@ -54,9 +66,10 @@ public class NavigationMesh : MonoBehaviour
             }
         }
 
-        NavigationMeshBuilder builder = new NavigationMeshBuilder();
-        regions = builder.ConstructNavigationMesh(wallIndexPositionMap, numRows, numColumns);
+    }
 
+    private void InitializeRegionAdjacencyMatrix()
+    {
         regionAdjacencyMatrix = new bool[regions.Count, regions.Count];
         for(int i = 0; i < regions.Count; i++)
         {
@@ -68,7 +81,19 @@ public class NavigationMesh : MonoBehaviour
                     regionAdjacencyMatrix[i, j] = false;
             }
         }
+    }
 
+    private bool AreRegionsAdjacent(NavigationRegion a, NavigationRegion b)
+    {
+        return a == b ||
+               a.Above(b) ||
+               a.Below(b) ||
+               a.LeftOf(b) ||
+               a.RightOf(b);
+    }
+
+    private void FillRegionIndexPositionMap()
+    {
         foreach(NavigationRegion region in regions)
         {
             for(int row = region.Row; row < region.Row + region.Height; row++)
@@ -151,14 +176,5 @@ public class NavigationMesh : MonoBehaviour
             result = regionIndexPositionMap[row, col];
 
         return result;
-    }
-
-    public bool AreRegionsAdjacent(NavigationRegion a, NavigationRegion b)
-    {
-        return a == b ||
-               a.Above(b) ||
-               a.Below(b) ||
-               a.LeftOf(b) ||
-               a.RightOf(b);
     }
 }
