@@ -14,7 +14,6 @@ public class NavigationMesh : MonoBehaviour
     private bool[,] regionAdjacencyMatrix;
 
     private Tilemap wallTiles;
-    private Tilemap floorTiles;
 
     // Matrix representation of our level. Positions marked 1 are walls,
     // and positions marked 0 are floors.
@@ -27,7 +26,6 @@ public class NavigationMesh : MonoBehaviour
         Transform floorTransform = transform.Find("WalkableArea");
 
         wallTiles = wallTransform.GetComponent<Tilemap>();
-        floorTiles = floorTransform.GetComponent<Tilemap>();
 
         // y is the number of rows, and x is the number of columns
         numRows = wallTiles.size.y;
