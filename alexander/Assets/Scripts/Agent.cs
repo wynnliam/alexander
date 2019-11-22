@@ -31,12 +31,12 @@ public class Agent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 targetPos = getTargetPosition();
+        Vector2 targetPos = GetTargetPosition();
 
-        Vector2 seekForce = seek(targetPos);
-        Vector2 seperationForce = seperation();
-        Vector2 cohesionForce = cohesion();
-        Vector2 alignmentForce = alignment();
+        Vector2 seekForce = Seek(targetPos);
+        Vector2 seperationForce = Seperation();
+        Vector2 cohesionForce = Cohesion();
+        Vector2 alignmentForce = Alignment();
 
         Vector2 totalForce = seekForce + seperationForce + cohesionForce * 0.1f + alignmentForce;
 
@@ -52,7 +52,7 @@ public class Agent : MonoBehaviour
         transform.Translate(velocity * Time.deltaTime, Space.World);
     }
 
-    private Vector2 getTargetPosition()
+    private Vector2 GetTargetPosition()
     {
         Vector2 result = transform.position;
 
@@ -75,7 +75,7 @@ public class Agent : MonoBehaviour
         return result;
     }
 
-    private Vector2 seek(Vector2 targetPos)
+    private Vector2 Seek(Vector2 targetPos)
     {
         Vector2 desiredVelocity = targetPos - (Vector2)transform.position;
         desiredVelocity = desiredVelocity.normalized * maxSpeed;
@@ -85,7 +85,7 @@ public class Agent : MonoBehaviour
         return force * (maxForce / maxSpeed);
     }
 
-    private Vector2 seperation()
+    private Vector2 Seperation()
     {
         Vector2 myPos2D = transform.position;
         Vector2 totalForce = Vector2.zero;
@@ -110,7 +110,7 @@ public class Agent : MonoBehaviour
         return totalForce * maxForce;
     }
 
-    private Vector2 cohesion()
+    private Vector2 Cohesion()
     {
         Vector2 myPos2D = transform.position;
         Vector2 centerOfMass = myPos2D;
@@ -137,7 +137,7 @@ public class Agent : MonoBehaviour
         return force * (maxForce / maxSpeed);
     }
 
-    private Vector2 alignment()
+    private Vector2 Alignment()
     {
         List<Vector2> neighborPos = flock.getNeighborPositions(id, transform.position, 10.0f);
         List<Vector2> neighborForwards = flock.getNeighborVelocity(id, transform.position, 10.0f);
