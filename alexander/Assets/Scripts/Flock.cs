@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Flock : MonoBehaviour
 {
+    public int id;
+
     public uint numAgents = 1;
     public GameObject agentType;
     public GameObject goal;
@@ -36,6 +38,8 @@ public class Flock : MonoBehaviour
 
         mesh = GameObject.Find("Grid").GetComponent<NavigationMesh>();
         Flowfield = null;
+
+        GameObject.Find("Grid").GetComponent<FlocksHandler>().AddFlock(this);
     }
 
     public List<Vector2> GetNeighborPositions(int id, Vector2 position, float radius)

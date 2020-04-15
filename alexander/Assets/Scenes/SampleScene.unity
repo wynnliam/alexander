@@ -17522,6 +17522,11 @@ PrefabInstance:
       propertyPath: goal
       value: 
       objectReference: {fileID: 65289411}
+    - target: {fileID: 6243809641357787666, guid: d94ec86ce9ce597439f572e4a8cbd213,
+        type: 3}
+      propertyPath: id
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6243809641357787667, guid: d94ec86ce9ce597439f572e4a8cbd213,
         type: 3}
       propertyPath: m_Name
@@ -25852,6 +25857,7 @@ GameObject:
   - component: {fileID: 1990585531}
   - component: {fileID: 1990585530}
   - component: {fileID: 1990585532}
+  - component: {fileID: 1990585533}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -25897,6 +25903,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff0efe4542c1fac46acd1e2c1cc8ab32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1990585533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990585529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39f350c2964145349a036085805ba0ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &6243809641204222507
@@ -25969,7 +25987,7 @@ PrefabInstance:
     - target: {fileID: 6243809641357787666, guid: d94ec86ce9ce597439f572e4a8cbd213,
         type: 3}
       propertyPath: numAgents
-      value: 30
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6243809641357787667, guid: d94ec86ce9ce597439f572e4a8cbd213,
         type: 3}
