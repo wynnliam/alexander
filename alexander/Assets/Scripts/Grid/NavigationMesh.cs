@@ -50,6 +50,22 @@ public class NavigationMesh : MonoBehaviour
     // time operation.
     private int[,] regionIndexPositionMap;
 
+    public int NumRows { get { return numRows; } }
+    public int NumCols { get { return numColumns; } }
+
+    public int NumRegions()
+    {
+        return regions.Count;
+    }
+
+    public bool IsWall(int row, int col)
+    {
+        if (row < 0 || row >= numRows || col < 0 || col >= numColumns)
+            return false;
+
+        return wallIndexPositionMap[row, col] == 1;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -187,6 +203,12 @@ public class NavigationMesh : MonoBehaviour
         }
 
         return result;
+    }
+
+    public void GetRowAndColFromGridSpacePosition(ref int row, ref int col, Vector3 pos)
+    {
+        row = (int)(pos.y - gridMapOrigin.y);
+        col = (int)(pos.x - gridMapOrigin.x);
     }
 
     public int NavigationRegionIdFromGridSpacePosition(Vector3 pos)

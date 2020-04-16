@@ -62,6 +62,16 @@ public class Flock : MonoBehaviour
         return result;
     }
 
+    public List<Vector3> GetAllPositions()
+    {
+        List<Vector3> result = new List<Vector3>();
+
+        foreach (GameObject g in flock)
+            result.Add(g.transform.position);
+
+        return result;
+    }
+
     public List<Vector2> GetNeighborVelocity(int id, Vector2 position, float radius)
     {
         List<Vector2> result = new List<Vector2>();
@@ -88,5 +98,7 @@ public class Flock : MonoBehaviour
     void Update()
     {
         Flowfield = mesh.GetFlowfieldGraph(goal.transform.position);
+
+        GameObject.Find("Grid").GetComponent<CrowdNavigationHandler>().GetCrowdFlowfield(id, goal.transform.position);
     }
 }

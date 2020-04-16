@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,6 +19,18 @@ public class FlocksHandler : MonoBehaviour
         flocks.Add(flock);
 
         Debug.Log(flock.id);
+    }
+
+    public int NumFlocks()
+    {
+        return flocks.Count;
+    }
+
+    public List<Flock> GetAllExcept(int exceptId)
+    {
+        Predicate<Flock> predicate = delegate (Flock f) { return f.id != exceptId; };
+
+        return flocks.FindAll(predicate);
     }
 
     // Update is called once per frame
