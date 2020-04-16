@@ -33,6 +33,13 @@ public class FlocksHandler : MonoBehaviour
         return flocks.FindAll(predicate);
     }
 
+    public Flock GetFlock(int flockID)
+    {
+        Predicate<Flock> predicate = delegate (Flock f) { return f.id == flockID; };
+
+        return flocks.Find(predicate);
+    }
+
     // Update is called once per frame
     void Update()
     {

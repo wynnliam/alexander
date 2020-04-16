@@ -15,6 +15,7 @@ public class Flock : MonoBehaviour
     private NavigationMesh mesh;
 
     public int[] Flowfield { get; private set; }
+    public Vector3[,] crowdFlowField;
 
     // Start is called before the first frame update
     void Start()
@@ -99,6 +100,6 @@ public class Flock : MonoBehaviour
     {
         Flowfield = mesh.GetFlowfieldGraph(goal.transform.position);
 
-        GameObject.Find("Grid").GetComponent<CrowdNavigationHandler>().GetCrowdFlowfield(id, goal.transform.position);
+        crowdFlowField = GameObject.Find("Grid").GetComponent<CrowdNavigationHandler>().GetCrowdFlowfield(id, goal.transform.position);
     }
 }

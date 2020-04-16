@@ -205,6 +205,15 @@ public class NavigationMesh : MonoBehaviour
         return result;
     }
 
+    public Vector3 TransformRowColToGridSpace(int row, int col)
+    {
+        Vector3 result = new Vector3(col + 0.5f, row + 0.5f);
+
+        result += gridMapOrigin;
+
+        return result;
+    } 
+
     public void GetRowAndColFromGridSpacePosition(ref int row, ref int col, Vector3 pos)
     {
         row = (int)(pos.y - gridMapOrigin.y);
@@ -216,6 +225,11 @@ public class NavigationMesh : MonoBehaviour
         int row = (int)(pos.y - gridMapOrigin.y);
         int col = (int)(pos.x - gridMapOrigin.x);
 
+        return NavigationRegionIdFromRowColPair(row, col);
+    }
+
+    public int NavigationRegionIdFromRowColPair(int row, int col)
+    {
         int result = -1;
 
         if (0 <= row && row < numRows && 0 <= col && col <= numColumns)

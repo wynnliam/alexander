@@ -55,8 +55,16 @@ public class Agent : MonoBehaviour
     private Vector2 GetTargetPosition()
     {
         Vector2 result = transform.position;
+        int row = -1, col = -1;
 
-        int[] flowField = flock.Flowfield;
+        mesh.GetRowAndColFromGridSpacePosition(ref row, ref col, transform.position);
+
+        if (flock.crowdFlowField != null && row >= 0 && row < mesh.NumRows && col >= 0 && col < mesh.NumCols)
+            result = flock.crowdFlowField[row, col];
+
+        return result;
+
+        /*int[] flowField = flock.Flowfield;
         int currRegion;
 
         if(flowField != null && flowField.Length > 0)
@@ -72,7 +80,7 @@ public class Agent : MonoBehaviour
                 result = target.transform.position;
         }
 
-        return result;
+        return result;*/
     }
 
     private Vector2 Seek(Vector2 targetPos)
