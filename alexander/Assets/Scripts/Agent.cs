@@ -41,7 +41,7 @@ public class Agent : MonoBehaviour
         Vector2 cohesionForce = Cohesion();
         Vector2 alignmentForce = Alignment();
 
-        Vector2 totalForce = seekForce + seperationForce + otherFlockAvoid * 5.0f + cohesionForce * 0.1f + alignmentForce;
+        Vector2 totalForce = seekForce + seperationForce + otherFlockAvoid * 3.0f + cohesionForce * 0.1f + alignmentForce;
 
         velocity = velocity + totalForce * Time.deltaTime;
 
