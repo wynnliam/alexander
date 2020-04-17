@@ -100,6 +100,6 @@ public class Flock : MonoBehaviour
     {
         Flowfield = mesh.GetFlowfieldGraph(goal.transform.position);
 
-        crowdFlowField = GameObject.Find("Grid").GetComponent<CrowdNavigationHandler>().GetCrowdFlowfield(id, goal.transform.position);
+        //crowdFlowField = GameObject.Find("Grid").GetComponent<CrowdNavigationHandler>().GetCrowdFlowfield(id, goal.transform.position);
     }
 }
