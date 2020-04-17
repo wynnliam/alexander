@@ -59,4 +59,17 @@ public class FlocksHandler : MonoBehaviour
     {
         
     }
+
+    internal List<Vector2> GetNeighborPositionsOtherFlocks(int agentId, int flockId, Vector3 position, float radius)
+    {
+        List<Vector2> result = new List<Vector2>();
+
+        foreach (Flock flock in flocks)
+        {
+            if(flock.id != flockId)
+                result.AddRange(flock.GetNeighborPositions(agentId, position, radius));
+        }
+
+        return result;
+    }
 }

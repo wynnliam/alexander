@@ -37,10 +37,11 @@ public class Agent : MonoBehaviour
 
         Vector2 seekForce = Seek(targetPos);
         Vector2 seperationForce = Seperation();
+        Vector2 otherFlockAvoid = SeperationOtherFlocks();
         Vector2 cohesionForce = Cohesion();
         Vector2 alignmentForce = Alignment();
 
-        Vector2 totalForce = seekForce + seperationForce * 2.0f + cohesionForce * 0.1f + alignmentForce;
+        Vector2 totalForce = seekForce + seperationForce + otherFlockAvoid * 5.0f + cohesionForce * 0.1f + alignmentForce;
 
         velocity = velocity + totalForce * Time.deltaTime;
 
@@ -100,8 +101,8 @@ public class Agent : MonoBehaviour
         Vector2 myPos2D = transform.position;
         Vector2 totalForce = Vector2.zero;
 
-        //List<Vector2> neighborPositions = flock.GetNeighborPositions(id, transform.position, 10.0f);
-        List<Vector2> neighborPositions = flocksHandler.GetNeighborPositions(id, flock.id, transform.position, 10.0f);
+        List<Vector2> neighborPositions = flock.GetNeighborPositions(id, transform.position, 10.0f);
+        //List<Vector2> neighborPositions = flocksHandler.GetNeighborPositions(id, flock.id, transform.position, 10.0f);
 
         if (neighborPositions.Count < 1)
             return Vector2.zero;
@@ -111,6 +112,32 @@ public class Agent : MonoBehaviour
             Vector2 pushForce = myPos2D - pos;
 
             if(pushForce.magnitude < seperationDist && pushForce.magnitude != 0.0f)
+            {
+                totalForce += pushForce / seperationDist;
+            }
+        }
+
+        totalForce = totalForce / neighborPositions.Count;
+
+        return totalForce * maxForce;
+    }
+
+    private Vector2 SeperationOtherFlocks()
+    {
+        Vector2 myPos2D = transform.position;
+        Vector2 totalForce = Vector2.zero;
+
+        List<Vector2> neighborPositions = flocksHandler.GetNeighborPositionsOtherFlocks(id, flock.id, transform.position, 10.0f);
+        //List<Vector2> neighborPositions = flocksHandler.GetNeighborPositions(id, flock.id, transform.position, 10.0f);
+
+        if (neighborPositions.Count < 1)
+            return Vector2.zero;
+
+        foreach (Vector2 pos in neighborPositions)
+        {
+            Vector2 pushForce = myPos2D - pos;
+
+            if (pushForce.magnitude < seperationDist && pushForce.magnitude != 0.0f)
             {
                 totalForce += pushForce / seperationDist;
             }
