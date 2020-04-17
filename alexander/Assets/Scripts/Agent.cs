@@ -21,11 +21,13 @@ public class Agent : MonoBehaviour
     private Vector2 velocity = Vector2.zero;
 
     private NavigationMesh mesh;
+    private FlocksHandler flocksHandler;
     
     // Start is called before the first frame update
     void Start()
     {
         mesh = GameObject.Find("Grid").GetComponent<NavigationMesh>();
+        flocksHandler = GameObject.Find("Grid").GetComponent<FlocksHandler>();
     }
 
     // Update is called once per frame
@@ -38,7 +40,7 @@ public class Agent : MonoBehaviour
         Vector2 cohesionForce = Cohesion();
         Vector2 alignmentForce = Alignment();
 
-        Vector2 totalForce = seekForce + seperationForce + cohesionForce * 0.1f + alignmentForce;
+        Vector2 totalForce = seekForce + seperationForce * 2.0f + cohesionForce * 0.1f + alignmentForce;
 
         velocity = velocity + totalForce * Time.deltaTime;
 
@@ -98,7 +100,8 @@ public class Agent : MonoBehaviour
         Vector2 myPos2D = transform.position;
         Vector2 totalForce = Vector2.zero;
 
-        List<Vector2> neighborPositions = flock.GetNeighborPositions(id, transform.position, 10.0f);
+        //List<Vector2> neighborPositions = flock.GetNeighborPositions(id, transform.position, 10.0f);
+        List<Vector2> neighborPositions = flocksHandler.GetNeighborPositions(id, flock.id, transform.position, 10.0f);
 
         if (neighborPositions.Count < 1)
             return Vector2.zero;

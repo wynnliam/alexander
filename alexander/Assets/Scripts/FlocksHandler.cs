@@ -40,6 +40,20 @@ public class FlocksHandler : MonoBehaviour
         return flocks.Find(predicate);
     }
 
+    public List<Vector2> GetNeighborPositions(int agentId, int flockId, Vector2 position, float radius)
+    {
+        List<Vector2> result = new List<Vector2>();
+        int useId;
+
+        foreach(Flock flock in flocks)
+        {
+            useId = flock.id == flockId ? agentId : -1;
+            result.AddRange(flock.GetNeighborPositions(useId, position, radius));
+        }
+
+        return result;
+    }
+
     // Update is called once per frame
     void Update()
     {
